@@ -2,7 +2,7 @@ import { jwtVerify, SignJWT } from "jose";
 import { AuthTokenPayload, UserRole } from "../types/auth";
 
 const secret = new TextEncoder().encode(
-  process.env.NEXT_PUBLIC_JWT_SECRET
+  process.env.NEXT_PUBLIC_JWT_SECRET ?? "secret"
 );
 
 export async function createToken(
@@ -30,12 +30,12 @@ export async function verifyToken(
         secret
     );
 
-    if (
-        typeof payload.username !== "string" || 
-        (payload.role !== "admin" && payload.role !== "operator")
-    ) {
-        throw new Error("Invalid token payload");
-    }
+  if (
+    typeof payload.username !== "string" ||
+    (payload.role !== "admin" && payload.role !== "operator")
+  ) {
+    throw new Error("Invalid token payload");
+  }
 
-   return payload as AuthTokenPayload;
- }
+  return payload as AuthTokenPayload;
+}

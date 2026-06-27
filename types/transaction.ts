@@ -1,7 +1,4 @@
-export type TransactionStatus =
-  | "PENDING"
-  | "APPROVED"
-  | "REJECTED";
+﻿export type TransactionStatus = "PENDING" | "APPROVED" | "REJECTED";
 
 export interface Transaction {
   id: string;
@@ -15,11 +12,19 @@ export interface Transaction {
   created_at: string;
 }
 
+export interface ListMeta {
+  total: number;
+  page: number;
+  limit: number;
+}
+
 export interface TransactionQuery {
   page?: number;
   limit?: number;
   status?: TransactionStatus;
   search?: string;
+  sortBy?: string;
+  order?: "asc" | "desc";
 }
 
 export interface CreateTransactionPayload {
