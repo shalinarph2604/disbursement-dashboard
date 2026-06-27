@@ -1,40 +1,172 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# LintasPay Tech Test
 
-## Getting Started
+Dashboard Disbursement menggunakan Next.js 14 (Pages Router), TypeScript, TanStack Query, React Hook Form, Zod, Axios, JOSE, dan Tailwind CSS.
 
-First, run the development server:
+---
+
+## Tech Stack
+
+- Next.js 14 (Pages Router)
+- TypeScript
+- Tailwind CSS
+- TanStack Query
+- Axios
+- React Hook Form
+- Zod
+- JOSE (JWT encode & decode)
+- Radix UI
+
+---
+
+## Cara Menjalankan Project
+
+Install dependency:
+
+```bash
+npm install
+```
+
+Jalankan development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Aplikasi akan berjalan di:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+---
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## Environment Variable
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Buat file `.env.local`
 
-## Learn More
+```env
+NEXT_PUBLIC_API_URL=YOUR_API_URL
+NEXT_PUBLIC_JWT_SECRET=YOUR_SECRET_KEY
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+## Kredensial Login
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Admin
 
-## Deploy on Vercel
+```
+Username : admin
+Password : admin123
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Operator
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+```
+Username : operator
+Password : operator123
+```
+
+---
+
+## Fitur yang Berhasil Diimplementasikan
+
+### Authentication
+
+- Login dengan validasi lokal
+- JWT menggunakan JOSE
+- JWT disimpan pada Cookie
+- Redirect otomatis setelah login
+- Redirect ke dashboard jika JWT masih valid
+- Logout
+- Protected Route
+- Validasi JWT (missing, invalid, expired)
+- Axios Interceptor untuk menangani response 401
+
+### Dashboard Transaksi
+
+- Server-side pagination
+- Search berdasarkan sender name
+- Filter berdasarkan status
+- Informasi jumlah data yang ditampilkan
+- Loading state
+- Empty state
+- Error state
+
+### Create Transaction (Operator)
+
+- Validasi menggunakan React Hook Form + Zod
+- Perhitungan `admin_fee` otomatis di frontend
+- Status otomatis `PENDING`
+- Loading state saat submit
+- Reset form setelah berhasil
+- Toast success & error
+- Query invalidation setelah create
+
+### Update Status (Admin)
+
+- Approve / Reject hanya dapat dilakukan oleh Admin
+- Tombol hanya muncul untuk transaksi dengan status `PENDING`
+- Dialog konfirmasi sebelum update
+- Query invalidation setelah update
+- Toast success & error
+
+### Detail Transaksi
+
+- Modal detail transaksi
+- Menggunakan endpoint `GET /transactions/:id`
+- Menampilkan seluruh informasi transaksi
+- Menampilkan `-` apabila note kosong
+
+### Role Based UI
+
+- Operator tidak dapat melihat tombol Approve / Reject
+- Admin tidak dapat melihat tombol Create Transaction
+
+### Utilities
+
+- Format Rupiah
+- Format Tanggal
+
+---
+
+## Fitur Bonus
+
+- Persist filter ke URL Query String sehingga filter tetap aktif setelah halaman di-refresh
+- Skeleton Loading pada modal detail transaksi
+
+---
+
+## Struktur Project
+
+```
+components/
+constant/
+context/
+data/
+hooks/
+lib/
+pages/
+schemas/
+services/
+types/
+utils/
+```
+
+---
+
+## Catatan Penggunaan AI
+
+Selama proses pengerjaan, AI digunakan sebagai alat bantu untuk mempercepat pengembangan, eksplorasi solusi, dan melakukan review implementasi.
+
+Beberapa area yang dibantu AI antara lain:
+
+- Diskusi arsitektur project
+- Penyusunan struktur folder
+- Review implementasi TanStack Query
+- Review Authentication Flow (JWT, Protected Route, Axios Interceptor)
+- Review TypeScript typing
+- Review React best practices
+- Penyusunan beberapa boilerplate komponen
+
+Seluruh kode yang dihasilkan AI telah ditinjau kembali, disesuaikan dengan kebutuhan project, diuji secara manual, serta dipahami sebelum digunakan.
