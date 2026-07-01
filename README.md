@@ -46,7 +46,6 @@ Buat file `.env.local`
 
 ```env
 NEXT_PUBLIC_API_URL=YOUR_API_URL
-NEXT_PUBLIC_JWT_SECRET=YOUR_SECRET_KEY
 ```
 
 ---
